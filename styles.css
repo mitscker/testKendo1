@@ -1,0 +1,11 @@
+* {
+    margin:0;
+    padding:0;
+}
+
+.element {
+    width:80%;
+    justify-content:center;
+    flex-direction:row;
+    margin:3% auto;
+}
