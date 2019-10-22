@@ -23,6 +23,8 @@
     <div id="chart" class="element"></div>
     <!-- visor de pdf -->
     <div id="pdfviewer" class="element"></div>
+    <!-- grid -->
+    <div id="grid" class="element"></div>
 
     <!-- examples -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.js"></script>
@@ -33,60 +35,75 @@
    
    function createChart() {
 
-            $("#chart").kendoChart({
+    /* grafica */
+        $("#chart").kendoChart({
+            title: {
+                text: "Charge current vs. charge time"
+            },
+            legend: {
+                visible: true
+            },
+            seriesDefaults: {
+                type: "scatterLine"
+            },
+            series: [{
+                name: "0.8C",
+                data: [[10, 10], [15, 20], [20, 25], [32, 40], [43, 50], [55, 60], [60, 70], [70, 80], [90, 100]]
+            }, {
+                name: "1.6C",
+                data: [[10, 40], [17, 50], [18, 70], [35, 90], [47, 95], [60, 100]]
+            }, {
+                name: "3.1C",
+                data: [[10, 70], [13, 90], [25, 100]]
+            }],
+            xAxis: {
+                max: 90,
+                labels: {
+                    format: "{0}m"
+                },
                 title: {
-                    text: "Charge current vs. charge time"
-                },
-                legend: {
-                    visible: true
-                },
-                seriesDefaults: {
-                    type: "scatterLine"
-                },
-                series: [{
-                    name: "0.8C",
-                    data: [[10, 10], [15, 20], [20, 25], [32, 40], [43, 50], [55, 60], [60, 70], [70, 80], [90, 100]]
-                }, {
-                    name: "1.6C",
-                    data: [[10, 40], [17, 50], [18, 70], [35, 90], [47, 95], [60, 100]]
-                }, {
-                    name: "3.1C",
-                    data: [[10, 70], [13, 90], [25, 100]]
-                }],
-                xAxis: {
-                    max: 90,
-                    labels: {
-                        format: "{0}m"
-                    },
-                    title: {
-                        text: "Time"
-                    }
-                },
-                yAxis: {
-                    max: 100,
-                    labels: {
-                        format: "{0}%"
-                    },
-                    title: {
-                        text: "Charge"
-                    }
-                },
-                tooltip: {
-                    visible: true,
-                    format: "{1}% in {0} minutes"
+                    text: "Time"
                 }
+            },
+            yAxis: {
+                max: 100,
+                labels: {
+                    format: "{0}%"
+                },
+                title: {
+                    text: "Charge"
+                }
+            },
+            tooltip: {
+                visible: true,
+                format: "{1}% in {0} minutes"
+            }
             });
         }
 
+        /* visor de pdf */
         $(document).ready(function() {
             $("#pdfviewer").kendoPDFViewer({
                 pdfjsProcessing: {
-                    file: "./content/web/pdfViewer/sample.pdf"
+                    file: "./content/web/"
                 },
                 width: "80%",
                 height: 800
             })
         })
+
+        /* grid */ 
+        $("#grid").kendoGrid({
+            columns: [
+                { field: "name" },
+                { field: "age" }
+            ],
+            dataSource: [
+                { name: "Jane Doe", age: 30}
+            ]
+        });
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.add({ name: "John Doe", age: 33 });
 
         $(document).ready(createChart);
         $(document).bind("kendo:skinChange", createChart);
