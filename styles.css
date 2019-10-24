@@ -3,12 +3,6 @@
     padding:0;
 }
 
-#chart {
-    flex-direction:row;
-    justify-content:center;
-    width:50%;
-}
-
 .container_2 {
     flex-direction:row;
     justify-content:center;
@@ -16,4 +10,45 @@
 
 #pdfviewer {
     height:200px;
+}
+
+/* animation */
+.fadeEffect {
+    -o-animation: fadein 2s;
+    -moz-animation: fadein 2s;
+    -webkit-animation: fadein 2s;
+    animation: fadein 2s;
+}
+
+@-moz-keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
 }
