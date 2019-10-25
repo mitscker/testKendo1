@@ -15,277 +15,204 @@
     <script src="./js/kendo.all.min.js"></script>
     <script src="./content/shared/js/console.js"></script>
     <link href="./styles.css" rel="stylesheet" type="text/css">
+    <link href="./stylescp.css" rel="stylesheet" type="text/css">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="./jsonGrafica.js" type="text/javascript"></script>
     <title>Document</title>
 </head>
-<body class="container px-3" style="background-color:#fff;box-shadow:3px 3px 3px 1px rgba(0,0,0,0.3);">
-
-    <header class="mb-5">
-        <!-- menu principal -->
-        <ul id="menu">
-            <li id="Item1">Item 1
-                <ul>
-                    <li>Sub Item 1</li>
-                    <li>Sub Item 2</li>
-                    <li>Sub Item 3</li>
-                </ul>
-            </li>
-            <li>Item 2
-                <ul>
-                    <li>Sub Item 1</li>
-                    <li>Sub Item 2</li>
-                    <li>Sub Item 3</li>
-                </ul>
-            </li>
-        </ul>
-    </header>
-
-    <!-- grafica -->
-    <div class="d-flex flex-row">
-        <!-- primera tabla -->
-        <div id="grid" class="w-50"></div>
-        <div id="chart" class="w-50 ml-3"></div>
-    </div>
-
-    <!-- segunda tabla -->
-    <a id="export" class="btn btn-primary mt-5 mb-2" style="color:#f4f4f4">Exportar en PDF</a>
-    <div id="gridOrdenes" class="w-100 mx-auto mb-5"></div>
-
-    <!-- otro grid -->
-    <div id="gridData" class="w-100 mx-auto m-5"></div>
-
-    <!-- visor de pdf -->
-    <div id="pdfviewer" class="w-100 mx-auto m-5"></div>
-    <!-- grid -->
-
-    <!-- examples -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.js"></script>
-    <script>
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.js';
-    </script>
-    <script>
-        //         //Detect browser support for CORS
-        // if ('withCredentials' in new XMLHttpRequest()) {
-        //     /* supports cross-domain requests */
-        //     document.write("CORS supported (XHR)");
-        // }
-        // else{
-        // if(typeof XDomainRequest !== "undefined"){
-        //     //Use IE-specific "CORS" code with XDR
-        //     document.write("CORS supported (XDR)");
-        // }else{
-        //     //Time to retreat with a fallback or polyfill
-        //     document.write("No CORS Support!");
-        // }
-        // }
-
-        /* menu principal  */
-        $("#menu").kendoMenu();
-        // get a reference to the menu widget
-        var menu = $("#menu").data("kendoMenu");
-        // open the sub menu of "Item1"
-        // menu.open("#Item1");
-
+<body class="pb-3">
         
-        function createChart() {
+        <header class="mb-5">
+            <!-- menu principal -->
+            <ul id="menu">
+                <li id="Item1">Item 1
+                    <ul>
+                        <li>Sub Item 1</li>
+                        <li>Sub Item 2</li>
+                        <li>Sub Item 3</li>
+                    </ul>
+                </li>
+                <li>Item 2
+                    <ul>
+                        <li>Sub Item 1</li>
+                        <li>Sub Item 2</li>
+                        <li>Sub Item 3</li>
+                    </ul>
+                </li>
+            </ul>
+        </header>
+
+        <div id="wrapper">
             
-            let arrayData = [{data: []}]
-            console.log(data["tt-Grafica"]);
-            for(let i of data["tt-Grafica"]) {
-                arrayData[0].data.push(i["PU"])
-            }
-            console.log(arrayData);
-    /* grafica */
-        $("#chart").kendoChart({
-            title: {
-                text: "IPC"
-            },
-            legend: {
-                visible: false
-            },
-            seriesDefaults: {
-                type: "line",
-                stack: false
-            },
-            dataSource: {
-                data: data["tt-Grafica"]
-            },
-            series: [{
-                field: "PU"
-            }],
-            valueAxis: {
-                max: 43500,
-                min: 43200,
-                line: {
-                    visible: false
-                },
-                minorGridLines: {
-                    visible: false
-                }
-            },
-            categoryAxis: {
-                categories: [],
-                majorGridLines: {
-                    visible: false
-                }
-            },
-            tooltip: {
-                visible: true,
-                template: "#= dataItem.Fecha # <br /> #= value #"
-            }
-            });
-        }
+            <!-- grafica -->
+            <div class="d-flex flex-row container-fluid">
+                <div class="row">
+                    <!-- primera tabla -->
+                    <div class="col-8">
+                        <div class="d-flex flex-column border border-black rounded">
+                            <h4 class="m-3">Portafolio de Capitales</h4>
+                            <div id="grid" class="overflow-auto" style="height:410px;"></div>
+                        </div>
+                    </div>
+    
+                    <div class="col-4">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-between">
+                                <h4 class="m-3">Gráfica</h4>
+                                <select>
+                                    <option>Indice IPC</option>
+                                    <option>AAPL.*</option>
+                                    <option>BIMBO.A</option>
+                                    <option>CEMEX.CPO</option>
+                                    <option>FB.*</option>
+                                    <option>MSFT.*</option>
+                                    <option>NAFTRAC.ISHRS</option>
+                                    <option>NFLX.*</option>
+                                    <option>R.A</option>
+                                    <option>TWTR.*</option>
+                                </select>  
+                            </div>
+                            <hr>
+                            <div id="chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        /* visor de pdf */
-        $(document).ready(function() {
-            $("#pdfviewer").kendoPDFViewer({
-                pdfjsProcessing: {
-                    file: ".//content//web//pdfViewer//sample.pdf"
-                },
-                width: "80%",
-                height: 800,
-                toolbar: {
-                    items: [
-                        "pager",
-                        "spacer",
-                        "download",
-                        "print"
-                    ]
-                }
-            })
-        })
+            <!-- grid de las ordenes -->
+            <a id="export" class="btn btn-primary mt-5 mb-2" style="color:#f4f4f4">Exportar en PDF</a>
+            <div id="gridOrdenes" class="w-100 mx-auto mb-5"></div>
 
-        /* grid */ 
-        $("#grid").kendoGrid({
-            columns: [
-            { field: "name" },
-            { field: "age" },
-            { command: [
-                { 
-                    name: "Comprar",
-                    click: function() {
-                        alert('Comprando..')
-                    },
-                    iconClass: "k-icon k-i-dollar"
-                },
-                {
-                    name: "Vender",
-                    click: function() {
-                        alert('Vendiendo..')
-                    },
-                    iconClass: "k-icon k-i-invert-colors"
-                }
-            ] }
-            ],
-            dataSource: {
-            data: [
-                { id: 1, name: "Jane Doe", age: 30 },
-                { id: 2, name: "John Doe", age: 33 }
-            ],
-            schema: {
-                model: { id: "id" }
-            }
-            },
-            sortable: true,
-            sort: function(e) {
-            console.log(e.sort.field);
-            console.log(e.sort.dir);
-            }
-        });
-        /* gridOrdenes */ 
-        $("#gridOrdenes").kendoGrid({
-            columns: [
-                { field: "id" },
-                { field: "Tipo" },
-                { field: "Costo" }
-            ],
-            dataSource: {
-            data: [
-                { id: 1, Tipo: "Compra", Costo: 22.34 },
-                { id: 2, Tipo: "Compra", Costo: 30 },
-                { id: 3, Tipo: "Venta", Costo: 30 },
-                { id: 4, Tipo: "Compra", Costo: 22.34 },
-                { id: 5, Tipo: "Venta", Costo: 30 },
-                { id: 6, Tipo: "Venta", Costo: 22.34 },
-                { id: 7, Tipo: "Compra", Costo: 30 },
-                { id: 8, Tipo: "Compra", Costo: 22.34 },
-                { id: 9, Tipo: "Venta", Costo: 33 }
-            ],
-            schema: {
-                model: { id: "id" }
-            }
-            },
-            sortable: true,
-            sort: function(e) {
-            console.log(e.sort.field);
-            console.log(e.sort.dir);
-            }
-        });
-
-        $("#export").click(function(e) {
-            let grid = $("#gridOrdenes").data("kendoGrid")
-            grid.saveAsPDF()
-        })
-
-        /* grid data */
-        var orderData = [
-            { OrderID: 1, OrderDate: "2017-11-06T12:00:00", Freight: 12.34, ShipCity: "Antwerp", ShipCountry: "Belgium" },
-            { OrderID: 2, OrderDate: "2019-03-02T12:00:00", Freight: 23.45, ShipCity: "Singapore", ShipCountry: "Singapore" },
-            { OrderID: 3, OrderDate: "2019-06-26T12:00:00", Freight: 34.56, ShipCity: "Shanghai", ShipCountry: "China" },
-            { OrderID: 4, OrderDate: "2017-09-20T12:00:00", Freight: 45.67, ShipCity: "Hamburg", ShipCountry: "Germany" },
-            { OrderID: 5, OrderDate: "2017-12-12T12:00:00", Freight: 56.78, ShipCity: "Mumbai", ShipCountry: "India" },
-            { OrderID: 6, OrderDate: "2018-02-08T12:00:00", Freight: 67.89, ShipCity: "Shanghai", ShipCountry: "China" },
-            { OrderID: 7, OrderDate: "2018-05-05T12:00:00", Freight: 78.90, ShipCity: "Tokyo", ShipCountry: "Japan" },
-            { OrderID: 8, OrderDate: "2019-08-03T12:00:00", Freight: 89.01, ShipCity: "Port Klang", ShipCountry: "Malaysia" },
-            { OrderID: 9, OrderDate: "2018-10-29T12:00:00", Freight: 90.12, ShipCity: "Rotterdam", ShipCountry: "Netherlands" },
-            { OrderID: 10, OrderDate: "2018-01-23T12:00:00", Freight: 10.32, ShipCity: "Vancouver", ShipCountry: "Canada" },
-            { OrderID: 11, OrderDate: "2018-04-17T12:00:00", Freight: 21.43, ShipCity: "Colón", ShipCountry: "Panama" },
-            { OrderID: 12, OrderDate: "2017-07-11T12:00:00", Freight: 32.54, ShipCity: "Manila", ShipCountry: "Philippines" },
-            { OrderID: 13, OrderDate: "2017-10-24T12:00:00", Freight: 43.65, ShipCity: "Singapore", ShipCountry: "Singapore" },
-            { OrderID: 14, OrderDate: "2018-03-11T12:00:00", Freight: 54.76, ShipCity: "Busan", ShipCountry: "South Korea" },
-            { OrderID: 15, OrderDate: "2018-06-17T12:00:00", Freight: 65.87, ShipCity: "Shenzhen", ShipCountry: "China" },
-            { OrderID: 16, OrderDate: "2018-10-13T12:00:00", Freight: 76.98, ShipCity: "Hong Kong", ShipCountry: "China" },
-            { OrderID: 17, OrderDate: "2019-04-19T12:00:00", Freight: 87.09, ShipCity: "Dubai", ShipCountry: "UAE" },
-            { OrderID: 18, OrderDate: "2019-07-25T12:00:00", Freight: 98.21, ShipCity: "Felixstowe", ShipCountry: "UK" },
-            { OrderID: 19, OrderDate: "2017-09-22T12:00:00", Freight: 13.24, ShipCity: "Los Angeles", ShipCountry: "USA" },
-            { OrderID: 20, OrderDate: "2018-12-09T12:00:00", Freight: 35.46, ShipCity: "New York", ShipCountry: "USA" },
-            { OrderID: 21, OrderDate: "2018-02-04T12:00:00", Freight: 57.68, ShipCity: "Guangzhou", ShipCountry: "China" },
-            { OrderID: 22, OrderDate: "2019-05-16T12:00:00", Freight: 9.87, ShipCity: "Long Beach", ShipCountry: "USA" },
-            { OrderID: 23, OrderDate: "2019-08-18T12:00:00", Freight: 24.13, ShipCity: "Singapore", ShipCountry: "Singapore" }
-            ];
-
-            var gridDataSource = new kendo.data.DataSource({
-                data: orderData,
-                schema: {
-                    model: {
-                    fields: {
-                        OrderID: { type: "number" },
-                        Freight: { type: "number" },
-                        OrderDate: { type: "date" },
-                        ShipCountry: { type: "string" },
-                        ShipCity: { type: "string" }
-                    }
-                    }
-                },
-                pageSize: 10,
-                sort: {
-                    field: "OrderDate",
-                    dir: "desc"
-                }
-            });
-
-            $("#gridData").kendoGrid({
-                dataSource: gridDataSource
-            })
-
-        $(document).ready(createChart);
-        $(document).bind("kendo:skinChange", createChart);
-
-    </script>
+            <div id="formContainers">
+                <div id="divcompra" style="width:100%;height:450px;background-color:#f2f2f2;display:none;">
+                    <!--barra del titulo-->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Instrucción de COMPRA</h5>
+                            <p><strong class="text-danger">1</strong> de 3</p>
+                        </div>
+                    </div>
+                    <!--imagen y disponible-->
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <img src="./images/cemexlogo.png" height="50" class="mx-5 my-3">
+                        <p class="lead mx-5 my-3"><strong>Disponible para comprar: </strong>$9,992,935.75</p>
+                    </div>
+                    <!--tabla-->
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td id="emisora1c lead">Emisora:</td>
+                                <td id="emisora2c">
+                                    <select>
+                                        <option id="emisorasdd"></option>
+                                    </select>
+                                </td>
+                                <td id="emisora3c"></td>
+                                <td id="emisora4c"></td>
+                            </tr>
+                            <tr>
+                                <td id="tipoOrden1c lead">Tipo de orden:</td>
+                                <td id="tipoOrden2c">
+                                    <select id="tipoOrdendd">
+                                    </select>
+                                </td>
+                                <td id="tipoOrden3c">!</td>
+                                <td id="tipoOrden4c"></td>
+                            </tr>
+                            <tr>
+                                <td id="titulos1c lead">Títulos:</td>
+                                <td id="titulos2c">
+                                    <input id="titulosinp" type="text" min="1" step="1" onkeyup="calculateAmount()" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" />
+                                </td>
+                                <td id="titulos3c">En posición:</td>
+                                <td id="titulos4c">0</td>
+                            </tr>
+                            <tr>
+                                <td id="precio1c lead">Precio:</td>
+                                <td id="precio2c">
+                                    <input id="precioinp" type="text" min="1" step="0.01" maxlength="10" value="0" size="10" onkeydown="calculateAmount()" />
+                                </td>
+                                <td id="precio3c">Último precio:</td>
+                                <td id="precio4c"></td>
+                            </tr>
+                            <tr>
+                                <td id="tiempoEspecifico1c lead">Tiempo específico:</td>
+                                <td id="tiempoEspecifico2c">
+                                    <input id="tiempoEspecificoCheck" type="checkbox" name="tiempoEspecificoinp" onClick="checkTimes()">
+                                    <select id="tiempoEspecificoHoras" disabled>
+                                    </select>
+                                    :
+                                    <select id="tiempoEspecificoMinutos" disabled>
+                                    </select>
+                                </td>
+                                <td id="tiempoEspecifico3c"></td>
+                                <td id="tiempoEspecifico4c"></td>
+                            </tr>
+                            <tr>
+                                <td id="vigencia1c lead">Vigencia</td>
+                                <td id="vigencia2c">
+                                    <select id="vigenciadd">
+                                        <option>01</option>
+                                    </select> Día(s)
+                                </td>
+                                <td id="vigencia3c"></td>
+                                <td id="vigencia4c"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--monto aproximado-->
+                    <div class="d-flex flex-row justify-content-center align-items-center" style="color:#de7d00;font-size:11pt;">
+                        <p class="text-warning"><strong>Monto Aproximado: $ &nbsp;</strong></p>
+                        <p id="aproxamount">0</p>
+                        <p>&nbsp;&nbsp; antes de comisiones e I.V.A.</p>
+                    </div>
+                    <br/>
+                    <br/>
+                    <p>Horario de operaciones</p>
+                </div>
+                <div id="divventa" style="width:100%;height:450px;background-color:#f2f2f2;display:none;">
+                    <!--barra de titulo-->    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Instrucción de VENTA</h5>
+                            <p><strong class="text-danger">1</strong> de 3</p>
+                        </div>
+                    </div>
+                    <p>Venta!!</p>
+                </div>
+            </div>
+            <!-- grid de las acciones en vivo -->
+            <div id="gridData" class="w-100 mx-auto mb-5"></div>
+            
+            <!-- visor de pdf -->
+            <div id="pdfviewer" class="w-100 mx-auto my-5"></div>
+            
         </div>
+        
+        
+    <!-- scripts de componentes -->
+    
+        <!--menu-->
+        <script src="./scripts/menu.js" type="text/javascript"></script>
+        <!--gridPortafolio-->
+        <script src="./scripts/gridPortafolio.js" type="text/javascript"></script>
+        <!--grid ordenes-->
+        <script src="./scripts/gridOrdenes.js" type="text/javascript"></script>
+        <!--charts-->
+        <script src="./scripts/charts.js" type="text/javascript"></script>
+        <!--grid actions-->
+        <script src="./scripts/gridActions.js" type="text/javascript"></script>
+        <!--pdfviewer-->
+        <script src="./scripts/pdfviewer.js" type="text/javascript"></script>
+        <!-- otras scripts -->
+
+        <!-- librerias para pdf -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.js"></script>
+        <script>
+            window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.js';
+            </script>
     
 </body>
 </html>
