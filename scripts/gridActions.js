@@ -193,22 +193,7 @@ function setValuesSell(data) {
 
 }
 
-// funcion para valores de radio buttons || estos valores estan estaticos
-function changeOption(value) {
-    if(value.name === 'titulosPos') {
-        let inpDisponibles = document.getElementById('inpDisp');
-        inpDisponibles.value = '4,910';
-        let enPosicion = document.getElementById('titulos4v');
-        enPosicion.innerHTML = '';
-        enPosicion.appendChild(document.createTextNode('4,910'));
-    } else if(value.name === 'titulosPres') {
-        let inpDisponibles = document.getElementById('inpDisp');
-        inpDisponibles.value = '0';
-        let enPosicion = document.getElementById('titulos4v');
-        enPosicion.innerHTML = '';
-        enPosicion.appendChild(document.createTextNode('0'));
-    }
-}
+
 
 // funcion para activar tiempos dependiendo si es compra/venta
 function checkTimes(event) {
