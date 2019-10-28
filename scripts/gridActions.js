@@ -1,12 +1,12 @@
 let datas = [
-    { emisora: "CEMEX.CPO", titulos_ini: 10000, titulos_act: 9000, costo_prom: 0.00, precio: 23.20, utilidad_per: "ND", porcentaje: "0.03", valor_mer: 165000 },
-    { emisora: "ALFA.A", titulos_ini: 14000, titulos_act: 9000, costo_prom: 0.00, precio: 40.20, utilidad_per: "ND", porcentaje: "0.03", valor_mer: 165000 },
-    { emisora: "ALPEK.A", titulos_ini: 10000, titulos_act: 9000, costo_prom: 0.00, precio: 53.20, utilidad_per: "ND", porcentaje: "0.03", valor_mer: 165000 },
-    { emisora: "ALSEA.*", titulos_ini: 14000, titulos_act: 9000, costo_prom: 0.00, precio: 73.20, utilidad_per: "ND", porcentaje: "0.03", valor_mer: 165000 },
-    { emisora: "AMX.L", titulos_ini: 14000, titulos_act: 9000, costo_prom: 0.00, precio: 90.20, utilidad_per: "ND", porcentaje: "0.03", valor_mer: 165000 },
-    { emisora: "ASUR.B", titulos_ini: 23000, titulos_act: 9000, costo_prom: 0.00, precio: 12.20, utilidad_per: "ND", porcentaje: "0.03", valor_mer: 165000 },
-    { emisora: "BIMBO.A", titulos_ini: 9000, titulos_act: 9000, costo_prom: 0.00, precio: 233.20, utilidad_per: "ND", porcentaje: "0.03", valor_mer: 165000 },
-    { emisora: "ELEKTRA.*", titulos_ini: 10000, titulos_act: 9000, costo_prom: 0.00, precio: 213.20, utilidad_per: "ND", porcentaje: "0.03", valor_mer: 165000 }
+    { emisora: "CEMEX.CPO", titulos_ini: 10000, titulos_act: 9000, costo_prom: 0.00, precio: 23.20, utilidad_per: "ND", porcentaje: "0.34", valor_mer: 165000 },
+    { emisora: "ALFA.A", titulos_ini: 14000, titulos_act: 9000, costo_prom: 0.00, precio: 40.20, utilidad_per: "ND", porcentaje: "0.34", valor_mer: 165000 },
+    { emisora: "ALPEK.A", titulos_ini: 10000, titulos_act: 9000, costo_prom: 0.00, precio: 53.20, utilidad_per: "ND", porcentaje: "0.34", valor_mer: 165000 },
+    { emisora: "ALSEA.*", titulos_ini: 14000, titulos_act: 9000, costo_prom: 0.00, precio: 73.20, utilidad_per: "ND", porcentaje: "0.34", valor_mer: 165000 },
+    { emisora: "AMX.L", titulos_ini: 14000, titulos_act: 9000, costo_prom: 0.00, precio: 90.20, utilidad_per: "ND", porcentaje: "0.34", valor_mer: 165000 },
+    { emisora: "ASUR.B", titulos_ini: 23000, titulos_act: 9000, costo_prom: 0.00, precio: 12.20, utilidad_per: "ND", porcentaje: "0.34", valor_mer: 165000 },
+    { emisora: "BIMBO.A", titulos_ini: 9000, titulos_act: 9000, costo_prom: 0.00, precio: 233.20, utilidad_per: "ND", porcentaje: "0.34", valor_mer: 165000 },
+    { emisora: "ELEKTRA.*", titulos_ini: 10000, titulos_act: 9000, costo_prom: 0.00, precio: 213.20, utilidad_per: "ND", porcentaje: "0.34", valor_mer: 165000 }
 ];
 
 let uidSelected = null; // uid de row
