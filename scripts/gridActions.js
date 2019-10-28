@@ -19,18 +19,33 @@ function scrollToElement() {
 }
     
 // funcion para validar tipo numero decimal en precio
-function calculateAmount() {
-    let titulos = document.getElementById("titulosinp").value;
-    let cantidad = document.getElementById("precioinp").value;
-    if(titulos && cantidad) {
-        let total = Number(titulos) * Number(cantidad);
-        let textNode = document.createTextNode(total.toFixed(2).toString());
-        let aprox = document.getElementById("aproxamount");
-        aprox.innerHTML = "";
-        aprox.appendChild(textNode);
-    } else {
-        let aprox = document.getElementById("aproxamount");
-        aprox.innerHTML = "0";
+function calculateAmount(type) {
+    if(type === 'c') {
+        let titulos = document.getElementById("titulosinp").value;
+        let cantidad = document.getElementById("precioinp").value;
+        if(titulos && cantidad) {
+            let total = Number(titulos) * Number(cantidad);
+            let textNode = document.createTextNode(total.toFixed(2).toString());
+            let aprox = document.getElementById("aproxamount");
+            aprox.innerHTML = "";
+            aprox.appendChild(textNode);
+        } else {
+            let aprox = document.getElementById("aproxamount");
+            aprox.innerHTML = "0";
+        }
+    } else if(type === 'v') {
+        let titulos = document.getElementById("titulosinpv").value;
+        let cantidad = document.getElementById("precioinpv").value;
+        if(titulos && cantidad) {
+            let total = Number(titulos) * Number(cantidad);
+            let textNode = document.createTextNode(total.toFixed(2).toString());
+            let aprox = document.getElementById("aproxamountv");
+            aprox.innerHTML = "";
+            aprox.appendChild(textNode);
+        } else {
+            let aprox = document.getElementById("aproxamountv");
+            aprox.innerHTML = "0";
+        }
     }
 }
 // seteando valores en compra
@@ -38,7 +53,7 @@ function setValuesBuy(data) {
     let emisora = data.emisora;
     let textNode = document.createTextNode(emisora);    
 
-    // emisoras
+    // emisoras compra
     let ddEmisoras = document.getElementById("emisorasdd");
     ddEmisoras.innerHTML = "";
     ddEmisoras.appendChild(textNode);
@@ -97,20 +112,124 @@ function setValuesBuy(data) {
                 document.getElementById("tiempoEspecificoMinutos").selectedIndex = i;
             }
         }
-        checkTimes(); // habilitado de dropdowns para el cambio de tiempo
+        checkTimes('c'); // habilitado de dropdowns para el cambio de tiempo
 
+}
+// seteando valores en compra
+function setValuesSell(data) {
+
+    // valores estaticos || titulos disponibles para vender
+    document.getElementById('lbltitPos').classList.add('active');
+    document.getElementById('lbltitPres').classList.remove('active');
+    let inpDisponibles = document.getElementById('inpDisp');
+    inpDisponibles.value = '4,910';
+    let enPosicion = document.getElementById('titulos4v');
+    enPosicion.innerHTML = '';
+    enPosicion.appendChild(document.createTextNode('4,910'));
+
+    let emisora = data.emisora;
+    let textNode = document.createTextNode(emisora);    
+
+    // emisoras compra
+    let ddEmisoras = document.getElementById("emisorasddv");
+    ddEmisoras.innerHTML = "";
+    ddEmisoras.appendChild(textNode);
+
+    // tipo de orden    
+    let arrayOptionsOrderType = ["LIMITADA","MERCADO CON PROTECCIÓN","MPL ACTIVA","MPL PASIVA","VOLUMEN OCULTO","AL CIERRE","PRECIO PROMEDIO DEL DÍA","MERCADO A LIMITADA","ACTIVADA A NIVEL LIMITADA"];
+    let ddOrderType = document.getElementById("tipoOrdenddv");
+    ddOrderType.innerHTML = "";
+    for(i = 0; i < arrayOptionsOrderType.length; i++) {
+        let optionElement = document.createElement("option");
+        textNode = document.createTextNode(arrayOptionsOrderType[i]);
+        optionElement.appendChild(textNode);
+        ddOrderType.appendChild(optionElement);
+    }
+
+    // titulos
+    document.getElementById("titulosinpv").value = null;
+    document.getElementById("aproxamountv").innerHTML = "0";
+
+    // precio
+    let precio = data.precio;
+    document.getElementById("precioinpv").value = precio;
+
+    // Timepo especifico
+        // horas
+        let hours = new Date().getHours();
+        for(i = 0; i < 11; i++) {
+            let optionHour = document.createElement("option");
+            if(hours !== 24){
+                horas = hours.toString();
+                horas = (horas.length === 1) ? '0' + horas : horas;
+                textNode = document.createTextNode(horas);
+                optionHour.appendChild(textNode);
+                document.getElementById("tiempoEspecificoHorasv").appendChild(optionHour);
+            } else {
+                hours = 0;
+                horas = hours.toString();
+                horas = (horas.length === 1) ? '0' + horas : horas;
+                textNode = document.createTextNode(horas);
+                optionHour.appendChild(textNode);
+                document.getElementById("tiempoEspecificoHorasv").appendChild(optionHour);
+            }
+            hours++;
+        }
+        // minutos
+        let minutes = new Date().getMinutes();
+        for(i = 0; i <= 60; i++) {
+            let optionMinutes = document.createElement("option");
+            optionMinutes.value = i;
+            let numMin = (i.toString().length === 1) ? '0' + i : i.toString();
+            textNode = document.createTextNode(numMin);
+            optionMinutes.appendChild(textNode);
+            document.getElementById("tiempoEspecificoMinutosv").appendChild(optionMinutes);
+
+            if(i === minutes) {
+                document.getElementById("tiempoEspecificoMinutosv").selectedIndex = i;
+            }
+        }
+        checkTimes('v'); // habilitado de dropdowns para el cambio de tiempo
 
 }
 
-// funcion para activar tiempos
-function checkTimes() {
-    let check = document.getElementById("tiempoEspecificoCheck").checked;
-    if(check === true) {
-        document.getElementById("tiempoEspecificoHoras").disabled = false;
-        document.getElementById("tiempoEspecificoMinutos").disabled = false;
-    } else {
-        document.getElementById("tiempoEspecificoHoras").disabled = true;
-        document.getElementById("tiempoEspecificoMinutos").disabled = true;
+// funcion para valores de radio buttons || estos valores estan estaticos
+function changeOption(value) {
+    if(value.name === 'titulosPos') {
+        let inpDisponibles = document.getElementById('inpDisp');
+        inpDisponibles.value = '4,910';
+        let enPosicion = document.getElementById('titulos4v');
+        enPosicion.innerHTML = '';
+        enPosicion.appendChild(document.createTextNode('4,910'));
+    } else if(value.name === 'titulosPres') {
+        let inpDisponibles = document.getElementById('inpDisp');
+        inpDisponibles.value = '0';
+        let enPosicion = document.getElementById('titulos4v');
+        enPosicion.innerHTML = '';
+        enPosicion.appendChild(document.createTextNode('0'));
+    }
+}
+
+// funcion para activar tiempos dependiendo si es compra/venta
+function checkTimes(event) {
+    if(event === 'c') {
+        let check = document.getElementById("tiempoEspecificoCheck").checked;
+        if(check === true) {
+            document.getElementById("tiempoEspecificoHoras").disabled = false;
+            document.getElementById("tiempoEspecificoMinutos").disabled = false;
+        } else {
+            document.getElementById("tiempoEspecificoHoras").disabled = true;
+            document.getElementById("tiempoEspecificoMinutos").disabled = true;
+        }
+    } else if(event === 'v') {
+        let check = document.getElementById("tiempoEspecificoCheckv").checked;
+        if(check === true) {
+            document.getElementById("tiempoEspecificoHorasv").disabled = false;
+            document.getElementById("tiempoEspecificoMinutosv").disabled = false;
+        } else {
+            document.getElementById("tiempoEspecificoHorasv").disabled = true;
+            document.getElementById("tiempoEspecificoMinutosv").disabled = true;
+        }
     }
 }
 
@@ -124,7 +243,6 @@ function cv(e) {
 
     let tr = $(e.target).closest("tr"); // obtencion de info del table row
     let data = this.dataItem(tr); // obteniendo los datos del elemento tr
-    console.log(data);
 
     // asignacion de uid & reasignacion en caso de ya contar con un valor
     if(uidSelected === null) {
@@ -134,18 +252,21 @@ function cv(e) {
         $("#divventa").hide("fast");
         uidSelected = data.uid;
     }
+
     // condicionales para ocultar el contenedor alterno a la accion
     if (getAction === "Comprar") {
-
         // seteando valores de compra
         setValuesBuy(data);
 
-        $("#divcompra").toggle("fast");
+        $("#divcompra").show("fast");
         if (document.getElementById("divventa").style.display !== "none") {
             $("#divventa").hide('fast');
         }
     } else if(getAction === "Vender") {
-        $("#divventa").toggle("fast");
+        // seteando valores de venta
+        setValuesSell(data);
+
+        $("#divventa").show("fast");
         if (document.getElementById("divcompra").style.display !== "none") {
             $("#divcompra").hide('fast');
         }
@@ -190,6 +311,7 @@ $("#gridData").kendoGrid({
     data: datas
     },
     sortable: true,
+    reorderable: true,
     resizable: true,
     sort: function(e) {
     console.log(e.sort.field);

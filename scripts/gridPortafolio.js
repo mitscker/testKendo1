@@ -46,6 +46,7 @@ $("#grid").kendoGrid({
     data: datos
     },
     sortable: true,
+    reorderable: true,
     resizable: true,
     sort: function(e) {
     console.log(e.sort.field);

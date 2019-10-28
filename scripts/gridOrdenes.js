@@ -22,6 +22,7 @@ $("#gridOrdenes").kendoGrid({
     }
     },
     sortable: true,
+    reorderable: true,
     sort: function(e) {
     console.log(e.sort.field);
     console.log(e.sort.dir);
