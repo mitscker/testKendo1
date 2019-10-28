@@ -18,6 +18,12 @@ function scrollToElement() {
     }, 500);
 }
     
+// funcion para cerrar lo paneles
+function closeDivCVPanels() {
+    $('#divcompra').hide('fast');
+    $('#divventa').hide('fast');
+}
+
 // funcion para validar tipo numero decimal en precio
 function calculateAmount(type) {
     if(type === 'c') {

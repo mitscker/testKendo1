@@ -90,6 +90,9 @@
                     <!--barra del titulo-->
                     <div class="card">
                         <div class="card-header">
+                            <button type="button" class="close" aria-label="Close" onclick="closeDivCVPanels()">
+                               <span aria-hidden="true">&times;</span>
+                            </button>
                             <h5>Instrucción de COMPRA</h5>
                             <p><strong class="text-danger">1</strong> de 3</p>
                         </div>
@@ -164,32 +167,35 @@
                     </table>
                     <!--monto aproximado-->
                     <div class="d-flex flex-row justify-content-center align-items-center" style="color:#de7d00;font-size:11pt;">
-                        <p class="text-warning"><strong>Monto Aproximado: $ &nbsp;</strong></p>
-                        <p id="aproxamount">0</p>
-                        <p>&nbsp;&nbsp; antes de comisiones e I.V.A.</p>
-                    </div>
-                    <hr class="m-3">
-                    <!--mensaje de politicas-->
-                    <div class="mx-3 p-1" style="background-color:#dfdfdf;">
-                        <small>Las Instrucciones ingresadas a través de Internet están relacionadas con las políticas de operación de Vector Casa de Bolsa S.A de C.V. Esta operación se realizará bajo su servicio de Ejecución de Operaciones, de manera que al no ser un servicio de inversión asesorado, dicha operación no proviene de una recomendación por parte de Vector Casa de Bolsa, S.A. de C.V.  En caso de no estar de acuerdo, favor de declinar la operación y contactar a su Asesor.</small>
-                    </div>
-                    <!--boton continuar-->
-                    <div class="mx-3 my-2 d-flex flex-row-reverse align-items-end">
-                        <button type="button" class="btn btn-secondary">Continuar</button>
-                    </div>
-                    <!--horario operaciones-->
+                            <p class="text-warning"><strong>Monto Aproximado: $ &nbsp;</strong></p>
+                            <p id="aproxamount">0</p>
+                            <p>&nbsp;&nbsp; antes de comisiones e I.V.A.</p>
+                        </div>
+                        <hr class="m-3">
+                        <!--mensaje de politicas-->
+                        <div class="mx-3 p-1" style="background-color:#dfdfdf;">
+                                <small>Las Instrucciones ingresadas a través de Internet están relacionadas con las políticas de operación de Vector Casa de Bolsa S.A de C.V. Esta operación se realizará bajo su servicio de Ejecución de Operaciones, de manera que al no ser un servicio de inversión asesorado, dicha operación no proviene de una recomendación por parte de Vector Casa de Bolsa, S.A. de C.V.  En caso de no estar de acuerdo, favor de declinar la operación y contactar a su Asesor.</small>
+                            </div>
+                            <!--boton continuar-->
+                            <div class="mx-3 my-2 d-flex flex-row-reverse align-items-end">
+                                <button type="button" class="btn btn-secondary">Continuar</button>
+                            </div>
+                            <!--horario operaciones-->
                     <p class="mx-3">Horario de operaciones: 08:30:00 - 18:00:00 hrs</p>
                 </div>
                 <div id="divventa" style="width:100%;height:630px;background-color:#f2f2f2;display:none;">
-                    <!--barra de titulo-->    
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Instrucción de VENTA</h5>
-                            <p><strong class="text-danger">1</strong> de 3</p>
+                        <!--barra de titulo-->    
+                        <div class="card">
+                            <div class="card-header">
+                                <button type="button" class="close" aria-label="Close" onclick="closeDivCVPanels()">
+                                   <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5>Instrucción de VENTA</h5>
+                                <p><strong class="text-danger">1</strong> de 3</p>
+                            </div>
                         </div>
-                    </div>
-                    <!--imagen y disponible-->
-                    <div class="d-flex flex-row justify-content-between align-items-center align-self-center">
+                        <!--imagen y disponible-->
+                        <div class="d-flex flex-row justify-content-between align-items-center align-self-center">
                         <img src="./images/cemexlogo.png" height="37" class="mx-5 my-3">
                         <div class="mx-5 my-3 d-flex flex-row align-items-center align-self-center justify-content-center">
                             <p class="lead align-items-center align-self-center">Disponible para vender:&nbsp;</p>
