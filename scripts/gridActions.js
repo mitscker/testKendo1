@@ -10,13 +10,6 @@ let datas = [
 ];
 
 let uidSelected = null; // uid de row
-
-// scroll suave
-function scrollToElement() {
-    $('html, body').animate({
-        scrollTop: $("#formContainers").offset().top
-    }, 500);
-}
     
 // funcion para validar tipo numero decimal en precio
 function calculateAmount(type) {
@@ -235,10 +228,7 @@ function checkTimes(event) {
 
 // compra/venta
 function cv(e) {
-   
-    scrollToElement();
 
-    e.preventDefault(); // previniendo el evento submit del form
     let getAction = e.data.commandName; // se obtiene la accion dependiento del boton
 
     let tr = $(e.target).closest("tr"); // obtencion de info del table row
@@ -278,6 +268,16 @@ function cv(e) {
     
 }
 
+function detailInit(e) {
+    let detailRow = e.detailRow;
+
+    detailRow.find(".tabstrip").kendoTabStrip({
+        animation: {
+            open: { effects: "fadeIn" }
+        }
+    });
+}
+
 /* grid */ 
 $("#gridData").kendoGrid({
     columns: [
@@ -313,6 +313,9 @@ $("#gridData").kendoGrid({
     sortable: true,
     reorderable: true,
     resizable: true,
+    datilTemplate: kendo.template($('#template').html()),
+    datailInit: detailInit,
+    dataBound: function() {},
     sort: function(e) {
     console.log(e.sort.field);
     console.log(e.sort.dir);
