@@ -226,19 +226,9 @@ function checkTimes(event) {
     }
 }
 
-function closeAllTabs() {
-    let grid = $('#gridData').data('kendoGrid');
-    $('.k-master-row').each(function(index) {
-        grid.collapseRow(this);
-    });
-}
-
-let oldRow = null;
-
 // compra/venta
 function cv(e) {
 
-    // closeAllTabs(); // cerrando todas las rows abiertas
 
     // funcion interna para expandir el contenedor dentro del grid
     e.preventDefault();
@@ -247,38 +237,15 @@ function cv(e) {
     let tr = $(e.target).closest('tr'); // obtencion de info del table row
     let data = this.dataItem(tr); // obteniendo los datos del elemento tr
     
-    // codigo para collapsar/expander contenedores para compra/venta
     let row = tr;
-    if(!oldRow){
-        oldRow = row;
-    }
-
-    if(row !== null) {
-        // activando el tab correspondiente a la accion que se clickeo
-        if(getAction === 'Comprar') {
-            let lielement = document.getElementById('liCompra');
-            if(lielement) {
-                document.getElementById('liCompra').classList.add('k-state-active');
-                document.getElementById('liVenta').classList.remove('k-state-active');
-            }
-        } else if(getAction === 'Vender') {
-            let lielement = document.getElementById('liCompra');
-            if(lielement) {
-                document.getElementById('liCompra').classList.remove('k-state-active');
-                document.getElementById('liVenta').classList.add('k-state-active');
-            }
-        }
-
-        if(row.next('.k-detail-row').is(':visible')) {
+    if(row) {
+        if(row.next('.k-detail-row').is(':visible')){
             this.collapseRow(row);
         } else {
-            if(oldRow !== row) {
-                this.collapseRow(oldRow);
-            }
             this.expandRow(row);
         }
-
     }
+
     // // asignacion de uid & reasignacion en caso de ya contar con un valor
     // if(uidSelected === null) {
     //     uidSelected = data.uid;
