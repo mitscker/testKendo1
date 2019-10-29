@@ -291,24 +291,33 @@
                 </div>
             </div>
 
+            
+            <!-- grid de las acciones en vivo -->
+            <div id="gridData" class="w-100 mx-auto mb-5"></div>
             <!--template-->
             <script type="text/x-kendo-template" id="template">
                 <div class="tabstrip">
-                    <ul>
-                        <li class="k-state-active">
-                           Orders
-                        </li>
-                    </ul>
-                    <div>
-                        <div class="orders"></div>
-                    </div>
+                        <ul>
+                            <li class="k-state-active">
+                               Compra
+                            </li>
+                            <li>
+                                Venta
+                            </li>
+                        </ul>
+                        <div>
+                            <div class="compra">Compra!</div>
+                        </div>
+                        <div>
+                            <div class="venta">Venta!</div>
+                        </div>
                 </div>
-
             </script>
-
-            <!-- grid de las acciones en vivo -->
-            <div id="gridData" class="w-100 mx-auto mb-5"></div>
-            
+            <style>
+                .k-detail-cell .k-tabstrip .k-content {
+                    padding: 0.2em;
+                }
+            </style>
             <!-- visor de pdf -->
             <div id="pdfviewer" class="w-100 mx-auto my-5"></div>
             

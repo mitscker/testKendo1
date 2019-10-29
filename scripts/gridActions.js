@@ -229,6 +229,7 @@ function checkTimes(event) {
 // compra/venta
 function cv(e) {
 
+    e.preventDefault();
     let getAction = e.data.commandName; // se obtiene la accion dependiento del boton
 
     let tr = $(e.target).closest("tr"); // obtencion de info del table row
@@ -281,23 +282,23 @@ function detailInit(e) {
 /* grid */ 
 $("#gridData").kendoGrid({
     columns: [
-        { command: [
-            { 
-                name: "Comprar",
-                text: "C",
-                click: cv,
-                iconClass: "k-icon k-i-dollar"
-            },
-            {
-                name: "Vender",
-                text: "V",
-                click: cv,
-                iconClass: "k-icon k-i-invert-colors"
-            }
-        ],
-        title: "Operar",
-        width: 85
-    },
+    //     { command: [
+    //         { 
+    //             name: "Comprar",
+    //             text: "C",
+    //             click: cv,
+    //             iconClass: "k-icon k-i-dollar"
+    //         },
+    //         {
+    //             name: "Vender",
+    //             text: "V",
+    //             click: cv,
+    //             iconClass: "k-icon k-i-invert-colors"
+    //         }
+    //     ],
+    //     title: "Operar",
+    //     width: 85
+    // },
     { field: "emisora", title: "Emisora", width: 90, attributes: {class: "table-cell", style: "text-align:center"}},
     { field: "titulos_ini", title: "Títulos <br/> iniciales", width: 60, attributes: {class: "table-cell", style: "text-align:center"}},
     { field: "titulos_act", title: "Títulos <br/> actuales", width: 60, attributes: {class: "table-cell", style: "text-align:center"}},
@@ -313,9 +314,11 @@ $("#gridData").kendoGrid({
     sortable: true,
     reorderable: true,
     resizable: true,
-    datilTemplate: kendo.template($('#template').html()),
-    datailInit: detailInit,
-    dataBound: function() {},
+    detailTemplate: kendo.template($('#template').html()),
+    detailInit: detailInit,
+    dataBound: function() {
+        this.expandRow(this.tbody.find('tr.k-master-row').first());
+    },
     sort: function(e) {
     console.log(e.sort.field);
     console.log(e.sort.dir);
