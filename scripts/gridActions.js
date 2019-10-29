@@ -229,43 +229,54 @@ function checkTimes(event) {
 // compra/venta
 function cv(e) {
 
+    // funcion interna para expandir el contenedor dentro del grid
+    let row = $(e.target).closest("tr");
+    if(row !== null) {
+        if(row.next('.k-detail-row').is(':visible')) {
+            this.collapseRow(row);
+        } else {
+            this.expandRow(row);
+        }
+    }
+
     e.preventDefault();
     let getAction = e.data.commandName; // se obtiene la accion dependiento del boton
 
     let tr = $(e.target).closest("tr"); // obtencion de info del table row
     let data = this.dataItem(tr); // obteniendo los datos del elemento tr
+    console.log('data: ', data);
 
-    // asignacion de uid & reasignacion en caso de ya contar con un valor
-    if(uidSelected === null) {
-        uidSelected = data.uid;
-    } else if(uidSelected !== data.uid) {
-        $("#divcompra").hide("fast");
-        $("#divventa").hide("fast");
-        uidSelected = data.uid;
-    }
+    // // asignacion de uid & reasignacion en caso de ya contar con un valor
+    // if(uidSelected === null) {
+    //     uidSelected = data.uid;
+    // } else if(uidSelected !== data.uid) {
+    //     $("#divcompra").hide("fast");
+    //     $("#divventa").hide("fast");
+    //     uidSelected = data.uid;
+    // }
 
-    // condicionales para ocultar el contenedor alterno a la accion
-    if (getAction === "Comprar") {
-        // seteando valores de compra
-        setValuesBuy(data);
+    // // condicionales para ocultar el contenedor alterno a la accion
+    // if (getAction === "Comprar") {
+    //     // seteando valores de compra
+    //     setValuesBuy(data);
 
-        $("#divcompra").show("fast");
-        if (document.getElementById("divventa").style.display !== "none") {
-            $("#divventa").hide('fast');
-        }
-    } else if(getAction === "Vender") {
-        // seteando valores de venta
-        setValuesSell(data);
+    //     $("#divcompra").show("fast");
+    //     if (document.getElementById("divventa").style.display !== "none") {
+    //         $("#divventa").hide('fast');
+    //     }
+    // } else if(getAction === "Vender") {
+    //     // seteando valores de venta
+    //     setValuesSell(data);
 
-        $("#divventa").show("fast");
-        if (document.getElementById("divcompra").style.display !== "none") {
-            $("#divcompra").hide('fast');
-        }
-    }
-    // cuando ningun contenedor este desplegado uid sera nulo
-    if (document.getElementById("divcompra").style.display === "none" && document.getElementById("divcompra").style.display === "none") {
-        uidSelected = null;
-    }
+    //     $("#divventa").show("fast");
+    //     if (document.getElementById("divcompra").style.display !== "none") {
+    //         $("#divcompra").hide('fast');
+    //     }
+    // }
+    // // cuando ningun contenedor este desplegado uid sera nulo
+    // if (document.getElementById("divcompra").style.display === "none" && document.getElementById("divcompra").style.display === "none") {
+    //     uidSelected = null;
+    // }
     
 }
 
@@ -282,23 +293,23 @@ function detailInit(e) {
 /* grid */ 
 $("#gridData").kendoGrid({
     columns: [
-    //     { command: [
-    //         { 
-    //             name: "Comprar",
-    //             text: "C",
-    //             click: cv,
-    //             iconClass: "k-icon k-i-dollar"
-    //         },
-    //         {
-    //             name: "Vender",
-    //             text: "V",
-    //             click: cv,
-    //             iconClass: "k-icon k-i-invert-colors"
-    //         }
-    //     ],
-    //     title: "Operar",
-    //     width: 85
-    // },
+        { command: [
+            { 
+                name: "Comprar",
+                text: "C",
+                click: cv,
+                iconClass: "k-icon k-i-dollar"
+            },
+            {
+                name: "Vender",
+                text: "V",
+                click: cv,
+                iconClass: "k-icon k-i-invert-colors"
+            }
+        ],
+        title: "Operar",
+        width: 85
+    },
     { field: "emisora", title: "Emisora", width: 90, attributes: {class: "table-cell", style: "text-align:center"}},
     { field: "titulos_ini", title: "Títulos <br/> iniciales", width: 60, attributes: {class: "table-cell", style: "text-align:center"}},
     { field: "titulos_act", title: "Títulos <br/> actuales", width: 60, attributes: {class: "table-cell", style: "text-align:center"}},
@@ -313,11 +324,12 @@ $("#gridData").kendoGrid({
     },
     sortable: true,
     reorderable: true,
+    selectable: 'row',
     resizable: true,
     detailTemplate: kendo.template($('#template').html()),
     detailInit: detailInit,
     dataBound: function() {
-        this.expandRow(this.tbody.find('tr.k-master-row').first());
+        // this.expandRow(this.tbody.find('tr.k-master-row').first());
     },
     sort: function(e) {
     console.log(e.sort.field);
