@@ -226,26 +226,59 @@ function checkTimes(event) {
     }
 }
 
+function closeAllTabs() {
+    let grid = $('#gridData').data('kendoGrid');
+    $('.k-master-row').each(function(index) {
+        grid.collapseRow(this);
+    });
+}
+
+let oldRow = null;
+
 // compra/venta
 function cv(e) {
 
-    // funcion interna para expandir el contenedor dentro del grid
-    let row = $(e.target).closest("tr");
-    if(row !== null) {
-        if(row.next('.k-detail-row').is(':visible')) {
-            this.collapseRow(row);
-        } else {
-            this.expandRow(row);
-        }
-    }
+    // closeAllTabs(); // cerrando todas las rows abiertas
 
+    // funcion interna para expandir el contenedor dentro del grid
     e.preventDefault();
     let getAction = e.data.commandName; // se obtiene la accion dependiento del boton
 
-    let tr = $(e.target).closest("tr"); // obtencion de info del table row
+    let tr = $(e.target).closest('tr'); // obtencion de info del table row
     let data = this.dataItem(tr); // obteniendo los datos del elemento tr
-    console.log('data: ', data);
+    
+    // codigo para collapsar/expander contenedores para compra/venta
+    let row = tr;
+    if(!oldRow){
+        oldRow = row;
+    }
 
+    if(row !== null) {
+        // activando el tab correspondiente a la accion que se clickeo
+        if(getAction === 'Comprar') {
+            let lielement = document.getElementById('liCompra');
+            if(lielement) {
+                document.getElementById('liCompra').classList.add('k-state-active');
+                document.getElementById('liVenta').classList.remove('k-state-active');
+            }
+        } else if(getAction === 'Vender') {
+            let lielement = document.getElementById('liCompra');
+            if(lielement) {
+                document.getElementById('liCompra').classList.remove('k-state-active');
+                document.getElementById('liVenta').classList.add('k-state-active');
+            }
+        }
+
+        if(row.next('.k-detail-row').is(':visible')) {
+            this.collapseRow(row);
+        } else {
+            if(oldRow !== row) {
+                this.collapseRow(oldRow);
+            }
+            this.expandRow(row);
+        }
+
+    }
     // // asignacion de uid & reasignacion en caso de ya contar con un valor
     // if(uidSelected === null) {
     //     uidSelected = data.uid;
@@ -285,9 +318,12 @@ function detailInit(e) {
 
     detailRow.find(".tabstrip").kendoTabStrip({
         animation: {
-            open: { effects: "fadeIn" }
+            open: { 
+                effects: 'expand:vertical fadeIn'
+            }
         }
     });
+
 }
 
 /* grid */ 
@@ -324,12 +360,11 @@ $("#gridData").kendoGrid({
     },
     sortable: true,
     reorderable: true,
-    selectable: 'row',
     resizable: true,
     detailTemplate: kendo.template($('#template').html()),
     detailInit: detailInit,
     dataBound: function() {
-        // this.expandRow(this.tbody.find('tr.k-master-row').first());
+        // this.collapseRow(this.tbody.find('tr.k-master-row').first());
     },
     sort: function(e) {
     console.log(e.sort.field);
