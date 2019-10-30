@@ -27,14 +27,8 @@ function closeDivCVPanels() {
     itsShow = false;
 }
 
-function cv(e) {
-    
-    e.preventDefault(); // omitiendo evento submit
-    let getAction = e.data.commandName;
-    // obteniendo contenedores
-    let contCompra = document.getElementById('divcompra');
-    let contVenta = document.getElementById('divventa');
-
+// funcion ocultando/mostrando contenedor de compra/venta
+function showhidecvContainer() {
     if(!itsShow) {
         // controla la vista del contenedor de compra/venta
         containercv.style.right = '0px'; // posicion del right para mostrar el contenedor
@@ -44,6 +38,19 @@ function cv(e) {
         containercv.style.right = '-' + ((viewportWidth/2)).toString() + 'px'; // posicion del right para ocultar el contenedor
         itsShow = false; // variable booleana para decir que no esta mostrandose
     }
+}
+
+function cv(e) {
+    
+    showhidecvContainer();
+
+    e.preventDefault(); // omitiendo evento submit
+    let getAction = e.data.commandName;
+    // obteniendo contenedores
+    let contCompra = document.getElementById('divcompra');
+    let contVenta = document.getElementById('divventa');
+
+    
 
     if(itsShow) {
         if(getAction === 'Comprar') {
