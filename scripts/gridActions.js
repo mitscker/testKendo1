@@ -9,10 +9,75 @@ let datas = [
     { emisora: "ELEKTRA.*", titulos_ini: 10000, titulos_act: 9000, costo_prom: 0.00, precio: 213.20, utilidad_per: "ND", porcentaje: "0.34", valor_mer: 165000 }
 ];
 
+// get de viewport height/width
+let viewportHeight = $(window).height();
+let viewportWidth = $(window).width();
+let containercv = document.getElementById('formContainers');
+let itsShow = false;
+
+containercv.style.height = (viewportHeight).toString() + 'px';
+containercv.style.width = (viewportWidth/2).toString() + 'px';
+containercv.style.right = '-' + ((viewportWidth)/2).toString() + 'px';
+
+// funcion para ocultar el contenedor de compra/venta
+function closeDivCVPanels() {
+    containercv.style.right = '-' + ((viewportWidth)/2).toString() + 'px';
+    document.getElementById('divcompra').style.display = 'none';
+    document.getElementById('divventa').style.display = 'none';
+    itsShow = false;
+}
+
+function cv(e) {
+    
+    e.preventDefault(); // omitiendo evento submit
+    let getAction = e.data.commandName;
+    // obteniendo contenedores
+    let contCompra = document.getElementById('divcompra');
+    let contVenta = document.getElementById('divventa');
+
+    if(!itsShow) {
+        // controla la vista del contenedor de compra/venta
+        containercv.style.right = '0px'; // posicion del right para mostrar el contenedor
+        itsShow = true; // variable booleana en true para decir que esta mostrandose
+    } else {
+        // controla la vista del contenedor de compra/venta
+        containercv.style.right = '-' + ((viewportWidth/2)).toString() + 'px'; // posicion del right para ocultar el contenedor
+        itsShow = false; // variable booleana para decir que no esta mostrandose
+    }
+
+    if(itsShow) {
+        if(getAction === 'Comprar') {
+            contCompra.style.display = 'block';
+            contVenta.style.display = 'none';
+        } else if(getAction === 'Vender') {
+            contVenta.style.display = 'block';
+            contCompra.style.display = 'none';
+        }
+    }
+
+}
 
 /* grid */ 
 $("#gridData").kendoGrid({
     columns: [
+        {
+            command: [
+                {
+                    name: 'Comprar',
+                    text: 'C',
+                    click: cv,
+                    iconClass: 'k-icon k-i-dollar'
+                },
+                {
+                    name: 'Vender',
+                    text: 'V',
+                    click: cv,
+                    iconClass: 'k-icon k-i-invert-colors'
+                },
+            ],
+            title: 'Operar',
+            width: 85
+        },
     { field: "emisora", title: "Emisora", width: 90, attributes: {class: "table-cell", style: "text-align:center"}},
     { field: "titulos_ini", title: "Títulos <br/> iniciales", width: 60, attributes: {class: "table-cell", style: "text-align:center"}},
     { field: "titulos_act", title: "Títulos <br/> actuales", width: 60, attributes: {class: "table-cell", style: "text-align:center"}},
