@@ -15,13 +15,13 @@ let viewportWidth = $(window).width();
 let containercv = document.getElementById('formContainers');
 let itsShow = false;
 
-containercv.style.height = (viewportHeight).toString() + 'px';
-containercv.style.width = (viewportWidth/2).toString() + 'px';
-containercv.style.right = '-' + ((viewportWidth)/2).toString() + 'px';
+containercv.style.height = (viewportHeight/1.5).toString() + 'px';
+// containercv.style.width = (viewportWidth/2).toString() + 'px';
+containercv.style.bottom = '-' + ((viewportHeight)/1.5).toString() + 'px';
 
 // funcion para ocultar el contenedor de compra/venta
 function closeDivCVPanels() {
-    containercv.style.right = '-' + ((viewportWidth)/2).toString() + 'px';
+    containercv.style.bottom = '-' + ((viewportHeight)/1.5).toString() + 'px';
     document.getElementById('divcompra').style.display = 'none';
     document.getElementById('divventa').style.display = 'none';
     itsShow = false;
@@ -31,11 +31,11 @@ function closeDivCVPanels() {
 function showhidecvContainer() {
     if(!itsShow) {
         // controla la vista del contenedor de compra/venta
-        containercv.style.right = '0px'; // posicion del right para mostrar el contenedor
+        containercv.style.bottom = '0px'; // posicion de la derecha para mostrar el contenedor
         itsShow = true; // variable booleana en true para decir que esta mostrandose
     } else {
         // controla la vista del contenedor de compra/venta
-        containercv.style.right = '-' + ((viewportWidth/2)).toString() + 'px'; // posicion del right para ocultar el contenedor
+        containercv.style.bottom = '-' + ((viewportHeight/1.5)).toString() + 'px'; // posicion del right para ocultar el contenedor
         itsShow = false; // variable booleana para decir que no esta mostrandose
     }
 }
