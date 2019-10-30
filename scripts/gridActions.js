@@ -9,10 +9,32 @@ let datas = [
     { emisora: "ELEKTRA.*", titulos_ini: 10000, titulos_act: 9000, costo_prom: 0.00, precio: 213.20, utilidad_per: "ND", porcentaje: "0.34", valor_mer: 165000 }
 ];
 
+// function al momento de dar click en compra/venta
+function cv() {
+
+}
 
 /* grid */ 
 $("#gridData").kendoGrid({
     columns: [
+    {
+        command: [
+            {
+                name: 'Comprar',
+                text: 'C',
+                click: cv,
+                iconClass: 'k-icon k-i-dollar'
+            },
+            {
+                name: 'Vender',
+                text: 'V',
+                click: cv,
+                iconClass: 'k-icon k-i-invert-colors'
+            }
+        ],
+        title: 'Operar',
+        width: 85
+    },
     { field: "emisora", title: "Emisora", width: 90, attributes: {class: "table-cell", style: "text-align:center"}},
     { field: "titulos_ini", title: "Títulos <br/> iniciales", width: 60, attributes: {class: "table-cell", style: "text-align:center"}},
     { field: "titulos_act", title: "Títulos <br/> actuales", width: 60, attributes: {class: "table-cell", style: "text-align:center"}},
