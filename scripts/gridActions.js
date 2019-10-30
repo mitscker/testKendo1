@@ -29,11 +29,19 @@ function cv(e) {
     e.preventDefault();
     let getOption = e.data.commandName;
     console.log(getOption);
+    
+    $('#compraventaw').data('kendoWindow').open();
+    // contenedores de compra/venta
+    let contCompra = document.getElementById('divcompra');
+    let contVenta = document.getElementById('divventa');
+
 
     if(getOption === "Comprar") {
-        $('#compraventaw').data('kendoWindow').open();
+        contCompra.style.display = 'block';
+        contVenta.style.display = 'none';
     } else if(getOption === "Vender") {
-
+        contVenta.style.display = 'block';
+        contCompra.style.display = 'none';
     }
 
 }
